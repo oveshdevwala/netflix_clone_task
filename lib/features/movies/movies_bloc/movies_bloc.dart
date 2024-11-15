@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:netflix_clone/features/movies/models/models.dart';
+import 'package:netflix_clone/core/common/models/models.dart';
 import 'package:netflix_clone/core/common/repository/repository.dart';
 
 part 'movies_events.dart';

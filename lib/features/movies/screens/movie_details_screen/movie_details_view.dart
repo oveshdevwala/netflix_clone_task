@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:netflix_clone/features/movies/models/models.dart';
+import 'package:netflix_clone/core/common/models/models.dart';
+import 'package:netflix_clone/core/theme/app_colors.dart';
+import 'package:netflix_clone/features/movies/widgets/outline_box.dart';
 import 'package:url_launcher/link.dart';
 
 class MovieDetailsView extends StatelessWidget {
@@ -20,7 +22,7 @@ class MovieDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.black,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -31,7 +33,7 @@ class MovieDetailsView extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 icon: const CircleAvatar(
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.white,
                     child: Icon(Icons.arrow_back_ios_new_rounded))),
             flexibleSpace: FlexibleSpaceBar(
               background: CachedNetworkImage(
@@ -53,31 +55,17 @@ class MovieDetailsView extends StatelessWidget {
                 children: [
                   Text(
                     movie.show!.name ?? 'Untitled',
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                    style: TextStyle(color: AppColors.white, fontSize: 14.sp),
                   ),
                   _MovieDetailsSection(movie: movie),
                   20.verticalSpace,
                   _MovieSummarySection(movie: movie),
-                  20.verticalSpace,
-                  _ExtraDetails(movie)
                 ],
               ),
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _ExtraDetails extends StatelessWidget {
-  const _ExtraDetails(this.movie);
-  final ShowModel movie;
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      children: [],
     );
   }
 }
@@ -122,7 +110,7 @@ class _MovieDetailsSection extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
+                        backgroundColor: AppColors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12).r)),
                     onPressed: openLink,
@@ -131,7 +119,7 @@ class _MovieDetailsSection extends StatelessWidget {
                       child: Text(
                         'Play Show',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: AppColors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 20.sp,
                         ),
@@ -141,28 +129,6 @@ class _MovieDetailsSection extends StatelessWidget {
                 );
               }),
       ],
-    );
-  }
-}
-
-class OutlineBox extends StatelessWidget {
-  const OutlineBox({super.key, this.title});
-  final String? title;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.blueGrey.withAlpha(100),
-          borderRadius: BorderRadius.circular(8),
-          // border: Border.all(color: Colors.blueGrey),
-          border: Border.all(width: 0)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3).r,
-        child: Text(
-          title ?? '',
-          style: TextStyle(color: Colors.white, fontSize: 14.sp),
-        ),
-      ),
     );
   }
 }
@@ -192,7 +158,7 @@ class _MovieSummarySection extends StatelessWidget {
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: AppColors.white,
             ),
           ),
         if (movie.show!.summary != null) 8.verticalSpace,
@@ -204,7 +170,7 @@ class _MovieSummarySection extends StatelessWidget {
                 .replaceAll('<b>', '')
                 .replaceAll('</b>', ''),
             textAlign: TextAlign.justify,
-            style: TextStyle(color: Colors.white70, fontSize: 14.sp),
+            style: TextStyle(color: AppColors.white70, fontSize: 14.sp),
           ),
       ],
     );

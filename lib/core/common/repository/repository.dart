@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:netflix_clone/features/movies/models/models.dart';
+import 'package:netflix_clone/core/common/models/models.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'repository.g.dart';
