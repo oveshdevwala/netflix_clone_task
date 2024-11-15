@@ -27,15 +27,22 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           await _moviesRepository.searchMovies(event.query);
       debugPrint('Search Sussessfullly Done');
       debugPrint('Search Sussessfullly ${res.first.show!.name}');
-      emit(state.copyWith(status: SearchStatus.success, movies: res));
+      emit(state.copyWith(
+          status: SearchStatus.success, movies: res, query: event.query));
       if (res.isEmpty) {
         emit(state.copyWith(
-            error: 'Search Movies Not Found', status: SearchStatus.failure));
+            error: 'Search Movies Not Found',
+            status: SearchStatus.failure,
+            query: event.query));
       }
     } on SocketException catch (e) {
-      emit(state.copyWith(error: e.message, status: SearchStatus.failure));
+      emit(state.copyWith(
+          error: e.message, status: SearchStatus.failure, query: event.query));
     } catch (e) {
-      emit(state.copyWith(error: e.toString(), status: SearchStatus.failure));
+      emit(state.copyWith(
+          error: e.toString(),
+          status: SearchStatus.failure,
+          query: event.query));
     }
   }
 }

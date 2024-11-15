@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:netflix_clone/features/app/app.dart';
 import 'package:netflix_clone/injectable.dart';
 
@@ -13,9 +14,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AppPage(),
-    );
+    return ScreenUtilInit(
+        //  minTextAdapt: true,
+        // splitScreenMode: true,
+        builder: (context, child) {
+      return const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: AppPage(),
+      );
+    });
   }
 }

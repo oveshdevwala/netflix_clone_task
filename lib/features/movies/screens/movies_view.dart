@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:netflix_clone/features/movies/models/models.dart';
 import 'package:netflix_clone/features/movies/movies_bloc/movies_bloc.dart';
@@ -25,7 +26,7 @@ class MoviesView extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 15),
+                  15.verticalSpace,
                   MainSlider(state: state),
                   MoviesSliderTile(
                       movies: state.popular!, title: 'Popular Movies'),
@@ -37,7 +38,7 @@ class MoviesView extends StatelessWidget {
                   MoviesSliderTile(movies: state.game!, title: 'Game Show'),
                   MoviesSliderTile(
                       movies: state.scifi!, title: 'Sci-Fi Movies'),
-                  const SizedBox(height: 70),
+                  70.verticalSpace,
                 ],
               ),
             );
@@ -57,8 +58,7 @@ class MainSlider extends StatelessWidget {
     return Center(
       //Wrap the OverlappedCarousel widget with SizedBox to fix a height. No need to specify width.
       child: SizedBox(
-          height: 250,
-          width: 3000,
+          height: 200.h,
           child: Swiper(
             itemBuilder: (BuildContext context, int index) {
               final movie = state.card![index].show;
@@ -83,8 +83,8 @@ class MainSlider extends StatelessWidget {
                             fit: BoxFit.cover)));
               }
             },
-            itemCount: 10,
-            itemWidth: 300.0,
+            itemCount: state.card!.length,
+            itemWidth: 280.0.w,
             layout: SwiperLayout.STACK,
           )),
     );
@@ -102,16 +102,16 @@ class MoviesSliderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10).r,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
           ),
           SizedBox(
-            height: 220,
+            height: 190.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: movies.length,
@@ -143,7 +143,7 @@ class MovieTile extends StatelessWidget {
           Navigator.push(context, MovieDetailsView.route(movie));
         },
         child: SizedBox(
-          width: 145,
+          width: 145.w,
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.grey.shade200,

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:netflix_clone/features/movies/models/models.dart';
 import 'package:url_launcher/link.dart';
@@ -23,7 +24,7 @@ class MovieDetailsView extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 300,
+            expandedHeight: 300.h,
             pinned: true,
             leading: IconButton(
                 onPressed: () {
@@ -46,18 +47,18 @@ class MovieDetailsView extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0).h,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     movie.show!.name ?? 'Untitled',
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
+                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
                   ),
                   _MovieDetailsSection(movie: movie),
-                  const SizedBox(height: 20),
+                  20.verticalSpace,
                   _MovieSummarySection(movie: movie),
-                  const SizedBox(height: 20),
+                  20.verticalSpace,
                   _ExtraDetails(movie)
                 ],
               ),
@@ -95,11 +96,11 @@ class _MovieDetailsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10),
+        10.verticalSpace,
 
         Wrap(
-          spacing: 10,
-          runSpacing: 5,
+          spacing: 10.w,
+          runSpacing: 5.h,
           children: [
             OutlineBox(title: movie.show!.type),
             OutlineBox(title: movie.show!.premiered?.split('-')[0] ?? ''),
@@ -110,7 +111,7 @@ class _MovieDetailsSection extends StatelessWidget {
             OutlineBox(title: movie.show!.language),
           ],
         ),
-        const SizedBox(height: 10),
+        10.verticalSpace,
         // Play Button
         if (movie.show!.url != null)
           Link(
@@ -123,16 +124,16 @@ class _MovieDetailsSection extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12))),
+                            borderRadius: BorderRadius.circular(12).r)),
                     onPressed: openLink,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0).r,
                       child: Text(
                         'Play Show',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 20.sp,
                         ),
                       ),
                     ),
@@ -156,10 +157,10 @@ class OutlineBox extends StatelessWidget {
           // border: Border.all(color: Colors.blueGrey),
           border: Border.all(width: 0)),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3).r,
         child: Text(
           title ?? '',
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: 14.sp),
         ),
       ),
     );
@@ -184,16 +185,17 @@ class _MovieSummarySection extends StatelessWidget {
               title:
                   '${movie.show!.network!.name} - ${movie.show!.network!.country!.name}',
             ),
-        const SizedBox(height: 10),
-        const Text(
-          'Summary',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+        10.verticalSpace,
+        if (movie.show!.summary != null)
+          Text(
+            'Summary',
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
+        if (movie.show!.summary != null) 8.verticalSpace,
         if (movie.show!.summary != null)
           Text(
             movie.show!.summary!
@@ -201,7 +203,8 @@ class _MovieSummarySection extends StatelessWidget {
                 .replaceAll('</p>', '')
                 .replaceAll('<b>', '')
                 .replaceAll('</b>', ''),
-            style: const TextStyle(color: Colors.white70),
+            textAlign: TextAlign.justify,
+            style: TextStyle(color: Colors.white70, fontSize: 14.sp),
           ),
       ],
     );
